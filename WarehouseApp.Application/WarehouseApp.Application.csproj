@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+
+	<ItemGroup>
+		<PackageReference Include="FluentValidation.DependencyInjectionExtensions" />
+		<PackageReference Include="MediatR" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" />
+	</ItemGroup>
+	
+  <ItemGroup>
+    <ProjectReference Include="..\WarehouseApp.Domain\WarehouseApp.Domain.csproj" />
+    <ProjectReference Include="..\WarehouseApp.Shared.Aplication\WarehouseApp.Shared.Core.csproj" />
+  </ItemGroup>
+
+   
+
+</Project>

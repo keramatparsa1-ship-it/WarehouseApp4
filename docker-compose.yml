@@ -1,0 +1,7 @@
+services:
+  warehouseapi:
+    build:
+      context: .
+      dockerfile: WarehouseApp.WebApi/Dockerfile
+    ports:
+      - "8080:8080"
