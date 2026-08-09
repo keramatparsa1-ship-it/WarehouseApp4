@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WarehouseApp.Application.Common.Interfaces;
+using WarehouseApp.Application.DTOs;
 using WarehouseApp.Domain.Entities;
 using WarehouseApp.Infrastructure.Persistence;
 
@@ -44,5 +45,10 @@ public class ProductRepository : IProductRepository
     {
         _context.Products.Remove(product);
         await _context.SaveChangesAsync();
+    }
+
+    public Task<ProductDto> AddAsync(AddProductInput input)
+    {
+        throw new NotImplementedException();
     }
 }

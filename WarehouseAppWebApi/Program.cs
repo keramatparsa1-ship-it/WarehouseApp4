@@ -10,9 +10,9 @@ using Asp.Versioning;
 using FluentValidation;
 using WarehouseApp.Application.Common.Interfaces;
 using Microsoft.AspNetCore.Identity;
+using WarehouseApp.WebApi.GraphQL;
 
 var builder = WebApplication.CreateBuilder(args);
-
 
 builder.Services.AddApiVersioning(options =>
 {
@@ -27,16 +27,11 @@ builder.Services.AddApiVersioning(options =>
     options.SubstituteApiVersionInUrl = true;
 });
 
-
 builder.Services.AddApplication();
-
-
 builder.Services.AddInfrastructure(builder.Configuration);
-
 
 builder.Services.AddScoped<IApplicationDbContext>(provider =>
     provider.GetRequiredService<AppDbContext>());
-
 
 builder.Services.AddValidatorsFromAssemblyContaining<ApplicationAssemblyMarker>();
 
@@ -55,6 +50,10 @@ builder.Services.AddCors(options =>
     });
 });
 
+builder.Services.AddGraphQLServer()
+    .AddQueryType<ProductQuery>()
+    .AddMutationType<ProductMutation>();
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -69,20 +68,20 @@ app.UseMiddleware<RequestLoggingMiddleware>();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
+
 app.UseCors("AllowAll");
 
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.MapGraphQL();
 app.MapControllers();
 app.MapHealthChecks("/health");
 app.MapFallbackToFile("index.html");
 
-
 using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-    
     dbContext.Database.Migrate();
     SeedData.Seed(dbContext);
 }

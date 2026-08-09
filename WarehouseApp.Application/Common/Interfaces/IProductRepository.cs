@@ -1,4 +1,5 @@
-﻿using WarehouseApp.Domain.Entities;
+﻿using WarehouseApp.Application.DTOs;
+using WarehouseApp.Domain.Entities;
 
 namespace WarehouseApp.Application.Common.Interfaces;
 
@@ -13,4 +14,5 @@ public interface IProductRepository
     Task UpdateAsync(Product product);
 
     Task DeleteAsync(Product product);
+    Task<ProductDto> AddAsync(AddProductInput input);
 }
